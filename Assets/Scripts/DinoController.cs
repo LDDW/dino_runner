@@ -6,26 +6,21 @@ public class DinoController : MonoBehaviour
     [SerializeField] private float speed = 5.0f;
     [SerializeField] private float acc = 0.01f;
     [SerializeField] private float jumpForce = 10.0f;
-
-    private Vector3 velocity;
-    private bool isGrounded;
-    private bool gameStarted = false;
-
-    private Vector3 initialPosition;
-
     [SerializeField] private float gravity = -20f;
+    [SerializeField] private bool isGrounded;
+    [SerializeField] private bool gameIsLaunched = false;
+    [SerializeField] private Vector3 velocity;
+    [SerializeField] public GameManager gameManager;
 
     void Start()
     {
-        // GameScreen.SetActive(false);
-        // GameOverScreen.SetActive(false);
-        // initialPosition = transform.position;
-        // ShowHomeScreen();
+        gameIsLaunched = false;
+        velocity = Vector3.zero;
     }
 
     void Update()
     {
-        // if (!gameStarted) return;
+        if (!gameIsLaunched) return;
 
         isGrounded = controller.isGrounded;
 
@@ -51,69 +46,32 @@ public class DinoController : MonoBehaviour
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
-        if (hit.gameObject.CompareTag("collider"))
+        if (gameIsLaunched && hit.gameObject.CompareTag("collider"))
         {
-            // stop game
-            // call function to hide game screen and show game over screen
-            // Time.timeScale = 0f; pas la bonne solution
+            Die();
         }
     }
 
-    // public void StartGame()
-    // {
-    //     gameStarted = true;
-    //     ResetPlayerPosition();
-    //     ShowGameScreen();
-    // }
+    public void StartGame()
+    {
+        gameIsLaunched = true;
+        velocity = Vector3.zero;
+        speed = 5.0f;
+    }
 
-    // public void GameOver()
-    // {
-    //     Time.timeScale = 0f;
-    //     ShowGameOverScreen();
-    // }
+    private void Die()
+    {
+        gameIsLaunched = false;
+        velocity = Vector3.zero;
+        
+        if (gameManager != null)
+        {
+            gameManager.displayGameOverScreen();
+        }
+        else
+        {
+            Debug.LogError("GameManager non assigné dans DinoController!");
+        }
+    }
 
-    // public void RestartGame()
-    // {
-    //     Time.timeScale = 1f;
-    //     gameStarted = true;
-    //     ResetPlayerPosition();
-    //     ShowGameScreen();
-    // }
-
-    // public void ReturnToStart()
-    // {
-    //     Time.timeScale = 1f;
-    //     gameStarted = false;
-    //     ResetPlayerPosition();
-    //     ShowHomeScreen();
-    // }
-
-    // private void ShowHomeScreen()
-    // {
-    //     HomeScreen.SetActive(true);
-    //     GameScreen.SetActive(false);
-    //     GameOverScreen.SetActive(false);
-    // }
-
-    // private void ShowGameScreen()
-    // {
-    //     HomeScreen.SetActive(false);
-    //     GameScreen.SetActive(true);
-    //     GameOverScreen.SetActive(false);
-    // }
-
-    // private void ShowGameOverScreen()
-    // {
-    //     HomeScreen.SetActive(false);
-    //     GameScreen.SetActive(false);
-    //     GameOverScreen.SetActive(true);
-    // }
-
-    // private void ResetPlayerPosition()
-    // {
-    //     controller.enabled = false;
-    //     transform.position = initialPosition;
-    //     controller.enabled = true; 
-    //     velocity = Vector3.zero;
-    // }
 }
