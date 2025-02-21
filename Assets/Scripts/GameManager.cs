@@ -6,9 +6,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] public GameObject gameOverUI;
     [SerializeField] public GameObject homeUI;
     [SerializeField] public DinoController dinoController;
+    [SerializeField] public MoveSection moveSection;
+    [SerializeField] public bool gameIsLaunched = false;
 
     void Start()
     {
+        gameIsLaunched = false;
         displayHomeScreen();
         hiddenGameOverScreen();
     }
@@ -56,8 +59,10 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
-        this.hiddenHomeScreen();
+        hiddenHomeScreen();
+        gameIsLaunched = true;
         dinoController.StartGame();
+        moveSection.StartGame();
     }
 
 

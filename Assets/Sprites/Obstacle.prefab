@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 9114463942014710047}
   - component: {fileID: 3489346585261858107}
   - component: {fileID: 8507244503599146586}
-  - component: {fileID: -1234366564792588768}
+  - component: {fileID: 3874357452597462682}
   m_Layer: 0
   m_Name: Obstacle
   m_TagString: collider
@@ -109,7 +109,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &-1234366564792588768
+--- !u!54 &3874357452597462682
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

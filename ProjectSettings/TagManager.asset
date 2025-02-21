@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 3
   tags:
   - collider
+  - Trigger
+  - Destroy
   layers:
   - Default
   - TransparentFX
